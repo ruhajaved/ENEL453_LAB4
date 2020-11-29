@@ -241,11 +241,11 @@ MUX4TO1_ins2: MUX4TO1
       );	
 	
 PWM_DAC_ins1 : PWM_DAC
-   Generic map ( width => 13		-- should this not be 12? if largest distance is 4094 makes sense to have a counter that's 12-bit
+   Generic map ( width => 12		-- should this not be 12? if largest distance is 4094 makes sense to have a counter that's 12-bit
 					)
    Port map    ( reset_n => reset_n,
 					  clk     => clk,
-					  duty_cycle => distance,
+					  duty_cycle => distance(11 downto 0),
 					  pwm_out    => pwm_out1
 					);	
 
