@@ -27,9 +27,9 @@ begin
    compare : process(counter, duty_cycle)
    begin    
        if (counter < unsigned(duty_cycle)) then
-           pwm_out <= '1';
+           pwm_out <= '0'; -- chnaged from 1
        else 
-           pwm_out <= '0';
+           pwm_out <= '1'; -- changed from 0
        end if;
    end process;
   
