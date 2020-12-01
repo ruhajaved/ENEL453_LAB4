@@ -28,7 +28,7 @@ component downcounter is
     Generic ( period  : natural := 1000); -- number to count       
     PORT    ( clk     : in  STD_LOGIC; -- clock to be divided
               reset_n : in  STD_LOGIC; -- active-high reset
-              --enable  : in  STD_LOGIC; -- active-high enable			-- set to always high 
+              enable  : in  STD_LOGIC; -- active-high enable			-- set to always high 
               zero    : out STD_LOGIC  -- creates a positive pulse every time current_count hits zero
 			);
 end component;
@@ -53,6 +53,7 @@ begin
 		--generic map ( period  : natural := 1000); -- number to count       
 		port map ( clk => clk, 
 				  reset_n => reset_n, 
+				  enable => '1',
 				  zero => EN
 				);
 
