@@ -16,7 +16,7 @@ end top_level;
 architecture Behavioral of top_level is
 
 Signal Num_Hex0, Num_Hex1, Num_Hex2, Num_Hex3, Num_Hex4, Num_Hex5 : STD_LOGIC_VECTOR (3 downto 0):= (others=>'0');   
-Signal Blank,Blank_out:  STD_LOGIC_VECTOR (5 downto 0);
+Signal Blank,Blank_out_temp, blank_out:  STD_LOGIC_VECTOR (5 downto 0);
 
 Signal DP_in0, DP_in1, DP_in2, DP_in3:  STD_LOGIC_VECTOR (15 downto 0);
 Signal DP_in: STD_LOGIC_VECTOR(15 DOWNTO 0);
@@ -135,6 +135,15 @@ component PWM_DAC is
            );
 end component;
 
+component DisplayFlash is
+	port ( distance : in STD_LOGIC_VECTOR(12 downto 0);
+			clk : in  STD_LOGIC;
+			reset_n : in  STD_LOGIC;
+			blank_out_temp : in STD_LOGIC_VECTOR(5 downto 0);
+			blank_out : out STD_LOGIC_VECTOR(5 downto 0)
+		);
+end component;
+
 begin
 	
    Num_Hex0 <= DFF_out(3  downto  0); 
@@ -217,7 +226,7 @@ blank_edit_ins:blank_edit
 		s          => s,
 		reset_n    => reset_n,
 		value_in   => DFF_out,
-		blank_out  => blank_out 
+		blank_out  => blank_out_temp 
 		);
 		
 MUX4TO1_ins: MUX4TO1                               
@@ -248,6 +257,14 @@ PWM_DAC_ins1 : PWM_DAC
 					  duty_cycle => distance(11 downto 0),
 					  pwm_out    => pwm_out1
 					);	
+
+DisplayFlash_ins : DisplayFlash
+	port map ( distance => distance,
+			clk => clk,
+			reset_n => reset_n,
+			blank_out_temp => blank_out_temp,
+			blank_out => blank_out
+		);
 
 LEDR(9 downto 0) <= pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1;
 --SW_int(9 downto 0); -- gives visual display of the switch inputs to the LEDs on board
