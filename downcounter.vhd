@@ -5,7 +5,7 @@ use IEEE.math_real.ceil;
 use IEEE.math_real.log2;
 
 entity downcounter is
-    Generic ( period  : natural := 1000000); -- number to count       
+    Generic ( period  : natural := 6000000); -- number to count       
     PORT    ( clk     : in  STD_LOGIC; -- clock to be divided
               reset_n : in  STD_LOGIC; -- active-high reset
               enable  : in  STD_LOGIC; -- active-high enable
