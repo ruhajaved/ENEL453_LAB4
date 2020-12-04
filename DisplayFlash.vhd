@@ -61,7 +61,7 @@ begin
 				);
 
 	PWM_DAC2_ins : PWM_DAC2
-		generic map ( width => 2)
+		--generic map ( width => 2)
 		port map ( reset_n => reset_n,
 			    EN	=> EN, -- used to slow down counter to make flashing visible to human eye
              clk  => clk,

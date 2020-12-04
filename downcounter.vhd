@@ -33,16 +33,16 @@ BEGIN
 
 	distance_t <= unsigned(distance);
 	
-	select_period : process(distance)
+	select_period : process(distance_t)
 		begin
 		if (distance_t < 500) then -- can you do this comparison?
-			period <= 4; --45_000;
+			period <= 45_000;
 		elsif (distance_t < 1000) then
-			period <= 5; --50_000;
+			period <= 50_000;
 		elsif (distance_t < 1500) then
-			period <= 6; --50_500;
+			period <= 50_500;
 		else --if (distance_t < 2000) then should work for anything above 2000 and if anything is above 2000 it'll just get blocked later on
-			period <= 7; --60_000;	
+			period <= 60_000;	
 		--else
 		--	period <= ; -- check if this can't be zero
 		end if;
