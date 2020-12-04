@@ -3,6 +3,7 @@ use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.NUMERIC_STD.ALL;
 use IEEE.math_real.ceil;
 use IEEE.math_real.log2;
+use work.LED_Flash_LUT_pkg.all;
 
 entity downcounter is
     --Generic ( period  : natural := 5); -- number to count    					-- change back to 6 000000   
@@ -20,40 +21,33 @@ architecture Behavioral of downcounter is
 
    signal current_count : integer;
    signal period : integer;
-   signal distance_t : unsigned(12 downto 0);
-   
-   -- with distance select period <=
-		-- 6_000_000 when (distance > 1500 and distance < 2000),
-		-- 5_500_000 when (distance > 1000 and distance < 1500),
-		-- 5_000_000 when (distance > 500 and distance < 1000),
-		-- 4_500_000 else 
-
+   --signal distance_t : unsigned(12 downto 0);
   
 BEGIN
 
-	distance_t <= unsigned(distance);
+	period <= DtoP_LUT(to_integer(unsigned(distance)));
 	
-	select_period : process(distance_t)
-		begin
-		if (distance_t < 500) then -- can you do this comparison?
-			period <= 45_000;
-		elsif (distance_t < 1000) then
-			period <= 50_000;
-		elsif (distance_t < 1500) then
-			period <= 50_500;
-		else --if (distance_t < 2000) then should work for anything above 2000 and if anything is above 2000 it'll just get blocked later on
-			period <= 60_000;	
-		--else
-		--	period <= ; -- check if this can't be zero
-		end if;
-		end process;
+	-- select_period : process(distance_t)
+		-- begin
+		-- if (distance_t < 500) then 
+			-- period <= 45_000;
+		-- elsif (distance_t < 1000) then
+			-- period <= 50_000;
+		-- elsif (distance_t < 1500) then
+			-- period <= 50_500;
+		-- else --if (distance_t < 2000) then should work for anything above 2000 and if anything is above 2000 it'll just get blocked later on
+			-- period <= 60_000;	
+		-- --else
+		-- --	period <= ; -- check if this can't be zero
+		-- end if;
+		-- end process;
    
    downcount : process(clk,reset_n) begin
      if (reset_n = '0') then 
           current_count <= 0 ;
           zero          <= '0';	
      elsif (rising_edge(clk)) then 
-        if (enable = '1') then 
+        if (enable = '1' and period /= 0) then  -- added /=
            if (current_count = 0) then
              current_count <= period - 1;
              zero          <= '1';
