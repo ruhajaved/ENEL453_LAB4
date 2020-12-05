@@ -15,18 +15,18 @@ architecture behaviour of buzzer is
 signal EN : STD_LOGIC;
 
 component downcounter_buzzer is    
-    PORT    ( clk     : in  STD_LOGIC; -- clock to be divided
-              reset_n : in  STD_LOGIC; -- active-high reset
-              enable  : in  STD_LOGIC; -- active-high enable			-- set to always high 
+    PORT    ( clk     : in  STD_LOGIC; 
+              reset_n : in  STD_LOGIC; 
+              enable  : in  STD_LOGIC; 
 			  distance : in STD_LOGIC_VECTOR(12 downto 0);
-              zero    : out STD_LOGIC  -- creates a positive pulse every time current_count hits zero
+              zero    : out STD_LOGIC  
 			);
 end component;
 
 component PWM_DAC2 is
    generic ( width : integer := 9);
    Port    ( reset_n    : in  STD_LOGIC;
-			    EN		: in STD_LOGIC; -- used to slow down counter to make flashing visible to human eye
+			    EN		: in STD_LOGIC; 
              clk        : in  STD_LOGIC;
              pwm_out    : out STD_LOGIC
            );
@@ -43,11 +43,9 @@ begin
 				);
 
 	PWM_DAC2_ins : PWM_DAC2
-		--generic map ( width => 2)
 		port map ( reset_n => reset_n,
 			    EN	=> EN, 
              clk  => clk,
              pwm_out => pwm_out
            );
-
 end;

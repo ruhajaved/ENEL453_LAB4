@@ -9,9 +9,8 @@ entity downcounter_buzzer is
     PORT    ( clk     : in  STD_LOGIC; -- clock to be divided
               reset_n : in  STD_LOGIC; -- active-high reset
               enable  : in  STD_LOGIC; -- active-high enable
-			  distance : in STD_LOGIC_VECTOR(12 downto 0); -- added to choose width
-              zero    : out STD_LOGIC  -- creates a positive pulse every time current_count hits zero
-                                       -- useful to enable another device, like to slow down a counter
+			  distance : in STD_LOGIC_VECTOR(12 downto 0); 
+              zero    : out STD_LOGIC 
               -- value  : out STD_LOGIC_VECTOR(integer(ceil(log2(real(period)))) - 1 downto 0) -- outputs the current_count value, if needed
          );
 end downcounter_buzzer;

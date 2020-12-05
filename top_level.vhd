@@ -18,35 +18,24 @@ architecture Behavioral of top_level is
 
 Signal Num_Hex0, Num_Hex1, Num_Hex2, Num_Hex3, Num_Hex4, Num_Hex5 : STD_LOGIC_VECTOR (3 downto 0):= (others=>'0');   
 Signal Blank,Blank_out_temp, blank_out:  STD_LOGIC_VECTOR (5 downto 0);
-
 Signal DP_in0, DP_in1, DP_in2, DP_in3:  STD_LOGIC_VECTOR (15 downto 0);
-Signal DP_in: STD_LOGIC_VECTOR(15 DOWNTO 0);
-
+Signal DP_in: 		  STD_LOGIC_VECTOR(15 DOWNTO 0);
 Signal switch_inputs: STD_LOGIC_VECTOR (12 downto 0);
-
-signal ADC_out_filled: STD_LOGIC_VECTOR(15 DOWNTO 0);
-
-
+signal ADC_out_filled:STD_LOGIC_VECTOR(15 DOWNTO 0);
 signal s:             STD_LOGIC_VECTOR(1 downto 0);
 signal mux_out:       STD_LOGIC_VECTOR(15 DOWNTO 0);
 signal in1:           STD_LOGIC_VECTOR(15 DOWNTO 0);
 signal DFF_out:       STD_LOGIC_VECTOR(15 DOWNTO 0);
-
 signal EN:            STD_LOGIC;
-
-
-signal voltage      : STD_LOGIC_VECTOR (12 downto 0); -- Voltage in milli-volts
-signal voltage_dec  : STD_LOGIC_VECTOR (15 downto 0);
-signal distance : STD_LOGIC_VECTOR (12 downto 0); -- distance in 10^-4 cm (e.g. if distance = 33 cm, then 3300 is the value)
-signal distance_dec : STD_LOGIC_VECTOR (15 downto 0);
-signal ADC_raw  : STD_LOGIC_VECTOR (11 downto 0); -- the latest 12-bit ADC value
-signal ADC_out  : STD_LOGIC_VECTOR (11 downto 0);  -- moving average of ADC value, over 256 samples,
-signal pwm_out1 : STD_LOGIC;
-
--- NEW SIGNALS ADDED
+signal voltage:		  STD_LOGIC_VECTOR (12 downto 0); -- Voltage in milli-volts
+signal voltage_dec:	  STD_LOGIC_VECTOR (15 downto 0);
+signal distance: 	  STD_LOGIC_VECTOR (12 downto 0); -- distance in 10^-4 cm (e.g. if distance = 33 cm, then 3300 is the value)
+signal distance_dec:  STD_LOGIC_VECTOR (15 downto 0);
+signal ADC_raw: 	  STD_LOGIC_VECTOR (11 downto 0); -- the latest 12-bit ADC value
+signal ADC_out: 	  STD_LOGIC_VECTOR (11 downto 0);  -- moving average of ADC value, over 256 samples,
+signal pwm_out1:	  STD_LOGIC;
 signal SW_int:		  STD_LOGIC_VECTOR(9 downto 0);
 
--- ADDED COMPONENT DECLARATION
 Component ADC_Data is
 	port(
 			 clk      : in STD_LOGIC;
@@ -109,7 +98,7 @@ End Component;
 Component debounce is
 	Generic(
 		clk_freq    : INTEGER := 50_000_000;
-		stable_time : INTEGER := 10					 -- set to 30ms for the required stable threshold time
+		stable_time : INTEGER := 10					
 		   );        
 	Port(
 		clk     : IN  STD_LOGIC; 
@@ -259,7 +248,7 @@ MUX4TO1_ins2: MUX4TO1
       );	
 	
 PWM_DAC_ins1 : PWM_DAC
-   Generic map ( width => 12		-- should this not be 12? if largest distance is 4094 makes sense to have a counter that's 12-bit
+   Generic map ( width => 12		
 					)
    Port map    ( reset_n => reset_n,
 					  clk     => clk,
@@ -283,7 +272,6 @@ buzzer_ins : buzzer
 		);
 
 LEDR(9 downto 0) <= pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1;
---SW_int(9 downto 0); -- gives visual display of the switch inputs to the LEDs on board
 switch_inputs <= "00000" & SW_int(7 downto 0);
 in1 <= "000" & switch_inputs(12 downto 0);
 s <=SW_int(9 downto 8);

@@ -4,7 +4,7 @@ use IEEE.STD_LOGIC_1164.ALL;
  package buzzer_LUT_pkg is
  
  type my_array is array (4095 downto 0) of integer;
- constant DtoBP_LUT : my_array := ( -- can this be the same name as the one used for the display?
+ constant DtoBP_LUT : my_array := (
  
 (	17500	)	,
 (	17496	)	,

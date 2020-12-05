@@ -13,46 +13,30 @@ end DisplayFlash;
 
 architecture behaviour of DisplayFlash is
 
---signal dc_width : STD_LOGIC_VECTOR(3 downto 0);
 signal EN : STD_LOGIC;
 signal pwm_out : STD_LOGIC;
---signal distance_t : unsigned(12 downto 0);
 
--- component D2DDC is
-	-- port(	distance : in STD_LOGIC_VECTOR(12 downto 0); -- added to choose width
-			-- dc_width : out STD_LOGIC_VECTOR (3 downto 0) -- largest width wanted will fit
-		-- );
--- end component;
-
-component downcounter_display is
-    --Generic ( period  : natural := 1000); -- number to count       
-    PORT    ( clk     : in  STD_LOGIC; -- clock to be divided
-              reset_n : in  STD_LOGIC; -- active-high reset
-              enable  : in  STD_LOGIC; -- active-high enable			-- set to always high 
+component downcounter_display is    
+    port    ( clk     : in  STD_LOGIC;
+              reset_n : in  STD_LOGIC; 
+              enable  : in  STD_LOGIC; 
 			  distance : in STD_LOGIC_VECTOR(12 downto 0);
-              zero    : out STD_LOGIC  -- creates a positive pulse every time current_count hits zero
+              zero    : out STD_LOGIC 
 			);
 end component;
 
 component PWM_DAC2 is
    generic ( width : integer := 9);
    Port    ( reset_n    : in  STD_LOGIC;
-			    EN		: in STD_LOGIC; -- used to slow down counter to make flashing visible to human eye
+			    EN		: in STD_LOGIC;
              clk        : in  STD_LOGIC;
-			    --dc_width : in STD_LOGIC_VECTOR (3 downto 0);
              pwm_out    : out STD_LOGIC
            );
 end component;
 
 begin
 
-	-- D2DDC_ins : D2DDC
-		-- port map (	distance => distance,
-				-- dc_width => dc_width 
-				-- );
-
 	downcounter_display_ins : downcounter_display
-		--generic map ( period  : natural := 1000); -- number to count       
 		port map ( clk => clk, 
 				  reset_n => reset_n, 
 				  enable => '1',
@@ -61,18 +45,13 @@ begin
 				);
 
 	PWM_DAC2_ins : PWM_DAC2
-		--generic map ( width => 2)
 		port map ( reset_n => reset_n,
-			    EN	=> EN, -- used to slow down counter to make flashing visible to human eye
+			    EN	=> EN,
              clk  => clk,
-			    --dc_width => dc_width,
              pwm_out => pwm_out
            );
 	
-	--distance_t <= unsigned(distance);
-	
 	select_out : process(distance, blank_out_temp, pwm_out)
-		--signal distance_t : unsigned(12 downto 0) := unsigned(distance);
 	begin
 		if (unsigned(distance) >= 2000) then
 			blank_out <= blank_out_temp;
