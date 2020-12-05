@@ -8,9 +8,10 @@ entity top_level is
 		     SW                            : in  STD_LOGIC_VECTOR (9 downto 0);
 		     PB2							        : in std_logic; 
            LEDR                          : out STD_LOGIC_VECTOR (9 downto 0);
-           HEX0,HEX1,HEX2,HEX3,HEX4,HEX5 : out STD_LOGIC_VECTOR (7 downto 0)
+           HEX0,HEX1,HEX2,HEX3,HEX4,HEX5 : out STD_LOGIC_VECTOR (7 downto 0);
+			  buzzerOut 						  : out STD_LOGIC
           );
-           
+         
 end top_level;
 
 architecture Behavioral of top_level is
@@ -144,6 +145,14 @@ component DisplayFlash is
 		);
 end component;
 
+component buzzer is
+	port ( distance : in STD_LOGIC_VECTOR(12 downto 0);
+			clk : in  STD_LOGIC;
+			reset_n : in  STD_LOGIC;
+			pwm_out : out STD_LOGIC
+		);
+end component;
+
 begin
 	
    Num_Hex0 <= DFF_out(3  downto  0); 
@@ -264,6 +273,13 @@ DisplayFlash_ins : DisplayFlash
 			reset_n => reset_n,
 			blank_out_temp => blank_out_temp,
 			blank_out => blank_out
+		);
+		
+buzzer_ins : buzzer
+	port map( distance => distance,
+			clk => clk,
+			reset_n => reset_n,
+			pwm_out => buzzerOut
 		);
 
 LEDR(9 downto 0) <= pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1 & pwm_out1;

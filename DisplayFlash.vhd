@@ -24,7 +24,7 @@ signal pwm_out : STD_LOGIC;
 		-- );
 -- end component;
 
-component downcounter is
+component downcounter_display is
     --Generic ( period  : natural := 1000); -- number to count       
     PORT    ( clk     : in  STD_LOGIC; -- clock to be divided
               reset_n : in  STD_LOGIC; -- active-high reset
@@ -51,7 +51,7 @@ begin
 				-- dc_width => dc_width 
 				-- );
 
-	downcounter_ins : downcounter
+	downcounter_display_ins : downcounter_display
 		--generic map ( period  : natural := 1000); -- number to count       
 		port map ( clk => clk, 
 				  reset_n => reset_n, 
