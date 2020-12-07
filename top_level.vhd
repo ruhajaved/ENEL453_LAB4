@@ -200,7 +200,7 @@ Seven_seg_ins: SevenSegment
 		
 debounce_ins: debounce
 	generic map (clk_freq   => 50_000_000,
-	            stable_time   => 30
+	            stable_time   => 30						
 					 )
 	PORT MAP(
 		clk     => clk,
@@ -248,11 +248,11 @@ MUX4TO1_ins2: MUX4TO1
       );	
 	
 PWM_DAC_ins1 : PWM_DAC
-   Generic map ( width => 12		
+   Generic map ( width => 13		
 					)
    Port map    ( reset_n => reset_n,
 					  clk     => clk,
-					  duty_cycle => distance(11 downto 0),
+					  duty_cycle => distance,
 					  pwm_out    => pwm_out1
 					);	
 
