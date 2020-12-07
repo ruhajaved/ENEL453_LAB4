@@ -248,11 +248,11 @@ MUX4TO1_ins2: MUX4TO1
       );	
 	
 PWM_DAC_ins1 : PWM_DAC
-   Generic map ( width => 13		
+   Generic map ( width => 12		
 					)
    Port map    ( reset_n => reset_n,
 					  clk     => clk,
-					  duty_cycle => distance,
+					  duty_cycle => distance(11 downto 0),
 					  pwm_out    => pwm_out1
 					);	
 

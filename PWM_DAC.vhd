@@ -20,13 +20,17 @@ begin
        if( reset_n = '0') then
            counter <= (others => '0');
        elsif (rising_edge(clk)) then 
-           counter <= counter + 1;
+			if (counter = 4094) then
+				counter <= (others => '0');
+           else
+				counter <= counter + 1;
+			end if;
        end if;
    end process;
  
    compare : process(counter, duty_cycle)
    begin    
-       if (counter < unsigned(duty_cycle)) then
+       if (counter <= unsigned(duty_cycle)) then
            pwm_out <= '0'; 
        else 
            pwm_out <= '1';
