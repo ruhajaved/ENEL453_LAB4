@@ -24,3 +24,12 @@ The technologies used include:
 6. A standard vibrating buzzer
 
 ## Launch
+
+In order to program the board, ensure that the distance sensor is connected to the board appropriately. 5V to the 5V connection on the board, GND to the GND connection on the board, and the VA0 connection to the lower unlabelled connection node on the board. Refer to "ENEL 453 Lab 3  v2.pdf" in the ENEL453_LAB3 repository for visuals. Likewise, ensure that the buzzer is connected to pin AB7, as shown in the document "ENEL 453 Lab 4  v1.pdf". Note that PB1 is configured as RESET and PB2 is configured at HOLD.
+
+## Possible Improvements
+
+Possible improvements for this project include:
+
+1.	Improve the design to also hold the LED brightness and the buzzer frequency when the hold button is pressed. Currently, only the display value is held.
+2.	Improve the LED brightness feature to take into consideration human perception of brightness. Currently, the LEDs operate on a 0%-100% duty cycle, when for the human eye, a 50% duty cycle is similar to a 100% duty cycle. Use a lookup table for this, rather than using the distance as the duty cycle, as done now. This will allow you to implement a non-linear relationship which is not expensive in hardware.
