@@ -8,6 +8,8 @@ Using the Intel MAX-10 FPGA, interfaced with a distance sensor and buzzer, desig
 
 ### Project Objective
 
+The project objectives included:
+
 1.	To gain experience with digital systems design, testing, and implementation.
 2.	To introduce students to real-world FPGA applications, such as a target sensor.
 3.	To give students a glimpse of what it means to be an engineer.
