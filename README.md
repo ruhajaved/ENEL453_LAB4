@@ -25,6 +25,15 @@ The technologies used include:
 5. Sharp Distance Measuring Sensor Unit GP2Y0A41SK0F
 6. A standard vibrating buzzer
 
+## Solution
+
+The following solution was implemented:
+
+1.	Designed a hierarchical system optimized for hardware implementation, by re-using values/modules, as well as lookup tables, throughout the design.
+2.	Implemented functionality to give the user the option to display the distance, voltage reading, or ADC moving average as a function of the target’s location (formatting included).
+3.	Added functionality to hold the display value when a button was pressed, with an independent module used to filter out debounce effects.
+4.	Using PWM modules, created appropriate driving signals for the LEDs, display, and buzzer as a function of distance.
+
 ## Launch
 
 To launch the project on to the board, you will first have to create a project in Quartus. To do so follow these steps:
