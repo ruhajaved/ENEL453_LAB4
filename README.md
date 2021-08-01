@@ -66,5 +66,5 @@ Possible improvements for this project include:
 1.	Improve the design to also hold the LED brightness and the buzzer frequency when the hold button is pressed. Currently, only the display value is held.
 2.	Improve the LED brightness feature to take into consideration human perception of brightness. Currently, the LEDs operate on a 0%-100% duty cycle, when for the human eye, a 50% duty cycle is similar to a 100% duty cycle. Use a lookup table for this, rather than using the distance as the duty cycle, as done now. This will allow you to implement a non-linear relationship which is not expensive in hardware.
 
-# Notes
+## Notes
 1. You can find a design explanation here: https://youtu.be/JUBlSwtNZd8.
